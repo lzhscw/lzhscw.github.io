@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="php变量覆盖">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scw&#39;blog">
+<meta property="og:url" content="http://example.com/2022/05/25/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96/index.html">
+<meta property="og:site_name" content="scw&#39;blog">
+<meta property="og:description" content="php变量覆盖">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-25T10:28:00.428Z">
+<meta property="article:modified_time" content="2022-05-25T10:18:17.107Z">
+<meta property="article:author" content="scw">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/05/25/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | scw'blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="scw'blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">scw'blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/25/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="scw">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="scw'blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-25 18:28:00 / 修改时间：18:18:17" itemprop="dateCreated datePublished" datetime="2022-05-25T18:28:00+08:00">2022-05-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="php变量覆盖"><a href="#php变量覆盖" class="headerlink" title="php变量覆盖"></a>php变量覆盖</h1><span id="more"></span>
+
+<h3 id="什么是变量覆盖"><a href="#什么是变量覆盖" class="headerlink" title="什么是变量覆盖"></a>什么是变量覆盖</h3><p>变量覆盖就是指用用户自定义的变量覆盖了程序原有的变量值**(一般变量覆盖漏洞本身很难有利用价值，需要和别的漏洞结合攻击，特殊情况下可以利用该漏洞直接获得getshell)**</p>
+<h3 id="漏洞产生原因"><a href="#漏洞产生原因" class="headerlink" title="漏洞产生原因"></a>漏洞产生原因</h3><p>由于<code>extract()、parse_str()、import_request_variables()</code>函数使用不当，以及开启了全局变量注册等</p>
+<p>全局变量注册：就是<code>register_globals</code>为<code>On</code>,此时传递的值为全局变量直接使用**(但在php4.2.0时就默认为off，5.3.0时废除5.4.0时被移除)**</p>
+<h3 id="函数使用"><a href="#函数使用" class="headerlink" title="函数使用"></a>函数使用</h3><h6 id="extract-array-extract-rules-prefix"><a href="#extract-array-extract-rules-prefix" class="headerlink" title="extract(array,extract_rules,prefix)"></a><code>extract(array,extract_rules,prefix)</code></h6><p>array必需，规定要用数组</p>
+<p>extract_rules非必须，该函数会检查每个键名是否为合法的变量名</p>
+<p><strong>例：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a = 1;</span><br><span class="line">echo &quot;\$a = $a&quot;;</span><br><span class="line">echo PHP_EOL;</span><br><span class="line">$my_array = array(&quot;a&quot; =&gt; 2);</span><br><span class="line">extract($my_array);</span><br><span class="line">echo &quot;\$a = $a&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>结果：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$a = 1</span><br><span class="line">$a = 2</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="parse-str-string-array"><a href="#parse-str-string-array" class="headerlink" title="parse_str(string,array)"></a><code>parse_str(string,array)</code></h6><p>string必需，需要放入要解析的字符串</p>
+<p>array非必需，规定存储变量的数组的名称</p>
+<p><strong>例：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a=1;</span><br><span class="line">parse_str(&#x27;a=2&#x27;);</span><br><span class="line">echo &quot;\$a = $a&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>结果：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$a = 2</span><br></pre></td></tr></table></figure>
+
+
+
+<h6 id="import-request-variables-string-types-string-prefix"><a href="#import-request-variables-string-types-string-prefix" class="headerlink" title="import_request_variables ( string $types [, string $prefix ] )"></a>import_request_variables ( string $types [, string $prefix ] )</h6><p>$type代表要注册的变量，G代表GET，P代表POST，C代表COOKIE，第二个参数为要注册变量的前缀</p>
+<h3 id="php-md5绕过"><a href="#php-md5绕过" class="headerlink" title="php md5绕过"></a>php md5绕过</h3><p>PHP在处理哈希字符串时，会利用”!&#x3D;”或”&#x3D;&#x3D;”来对哈希值进行比较，它把每一个以”0E”开头的哈希值都解释为0，所以如果两个不同的密码经过哈希以后，若其哈希值都是以”0E”开头的，那么PHP将会认为他们相同，都是0。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/25/%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E5%88%B7%E9%A2%98/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/25/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96"><span class="nav-number">1.</span> <span class="nav-text">php变量覆盖</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96"><span class="nav-number">1.0.1.</span> <span class="nav-text">什么是变量覆盖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E4%BA%A7%E7%94%9F%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.0.2.</span> <span class="nav-text">漏洞产生原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8"><span class="nav-number">1.0.3.</span> <span class="nav-text">函数使用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#extract-array-extract-rules-prefix"><span class="nav-number">1.0.3.0.0.1.</span> <span class="nav-text">extract(array,extract_rules,prefix)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#parse-str-string-array"><span class="nav-number">1.0.3.0.0.2.</span> <span class="nav-text">parse_str(string,array)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#import-request-variables-string-types-string-prefix"><span class="nav-number">1.0.3.0.0.3.</span> <span class="nav-text">import_request_variables ( string $types [, string $prefix ] )</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#php-md5%E7%BB%95%E8%BF%87"><span class="nav-number">1.0.4.</span> <span class="nav-text">php md5绕过</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">scw</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">scw</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

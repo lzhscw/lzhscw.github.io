@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="upload-labs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scw&#39;blog">
+<meta property="og:url" content="http://example.com/2022/05/25/upload-labs/index.html">
+<meta property="og:site_name" content="scw&#39;blog">
+<meta property="og:description" content="upload-labs">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-25T10:30:20.756Z">
+<meta property="article:modified_time" content="2022-05-25T10:20:47.172Z">
+<meta property="article:author" content="scw">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/05/25/upload-labs/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title> | scw'blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="scw'blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">scw'blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/25/upload-labs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="scw">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="scw'blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-05-25 18:30:20 / 修改时间：18:20:47" itemprop="dateCreated datePublished" datetime="2022-05-25T18:30:20+08:00">2022-05-25</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="upload-labs"><a href="#upload-labs" class="headerlink" title="upload-labs"></a>upload-labs</h1><span id="more"></span>
+
+<h3 id="Pass-01"><a href="#Pass-01" class="headerlink" title="Pass-01"></a>Pass-01</h3><p>这题是运用了js前端验证，只需要将一个php文件后缀改为jpg上传，然后抓包，修改后缀即可</p>
+<h3 id="Pass-02"><a href="#Pass-02" class="headerlink" title="Pass-02"></a>Pass-02</h3><p>该题利用后端MIME验证，上传一个php文件，将Content-Type内容改为image&#x2F;png即可通过验证</p>
+<h3 id="Pass-03"><a href="#Pass-03" class="headerlink" title="Pass-03"></a>Pass-03</h3><p>该题后端过滤了.asp|.aspx|.php|.jsp的后缀文件，可以通过上传.php3绕过。</p>
+<h3 id="Pass-04"><a href="#Pass-04" class="headerlink" title="Pass-04"></a>Pass-04</h3><p>该题后端过滤了基本所有能解析的文件，可以通过上传一个<code>.htaccess</code>文件，在里面写入<code>SetHandler application/x-httpd-php</code>,这样会将该目录的文件当作php文件去解析，在上传个PHP文件将后缀改为txt即可、</p>
+<h3 id="Pass-05"><a href="#Pass-05" class="headerlink" title="Pass-05"></a>Pass-05</h3><p>该题在上一题的基础上过滤了，<code>.htaccess</code>可以考虑用大小写绕过，然后剩余步骤与上一题一样</p>
+<h3 id="Pass-06"><a href="#Pass-06" class="headerlink" title="Pass-06"></a>Pass-06</h3><p>该题没有去除空格的函数，可以利用空格绕过，上传成功但不知为何无法用蚁剑连接</p>
+<h3 id="Pass-07"><a href="#Pass-07" class="headerlink" title="Pass-07"></a>Pass-07</h3><p>该题与之前几题相比，没有去掉末尾的<code>.</code>的函数，可以在文件名后加<code>.</code>绕过</p>
+<h3 id="Pass-08"><a href="#Pass-08" class="headerlink" title="Pass-08"></a>Pass-08</h3><p>该题缺少了过滤特殊字符<code>::$DATA</code>,在windows环境下php文件名后加此特殊符号，会将特殊符号后的数据当作文件流处理，而不会检测后缀名</p>
+<h3 id="Pass-09"><a href="#Pass-09" class="headerlink" title="Pass-09"></a>Pass-09</h3><p>这题过滤了所有可以解析的文件，可以用<code>. .</code>绕过，但不知为何无法用蚁剑连接</p>
+<h3 id="Pass-10"><a href="#Pass-10" class="headerlink" title="Pass-10"></a>Pass-10</h3><p>该题过滤了php将其替换为了’’，可以考虑用双写绕过，将后缀改为<code>pphphp</code>即可绕过</p>
+<h3 id="Pass-11"><a href="#Pass-11" class="headerlink" title="Pass-11"></a>Pass-11</h3><p>由于该题使用白名单，并且重新拼接了文件名可以考虑用%00截断</p>
+<p>在GET传参处构造文件名1.php并在末尾加上%00即可(需要php版本为5.12.7，并将php.ini里的magic_quotes_gpc改为off)</p>
+<h3 id="Pass-12"><a href="#Pass-12" class="headerlink" title="Pass-12"></a>Pass-12</h3><p>这道题运用到的也是%00截断，但是是post请求要在..&#x2F;upload&#x2F;后加<code>1.php+</code>或<code>1.php空格 </code>而由于post不会对里面的数据自动解码，要到Hex中找到对应的数据改为<code>00</code></p>
+<h3 id="Pass-13"><a href="#Pass-13" class="headerlink" title="Pass-13"></a>Pass-13</h3><p>该题是检查文件开头两个字节检测文件，可以利用cmd制作图片马<code>copy xxx.jpg/b + xxx.php /a xxx.jpg</code>即可获得图片马，然后上传，再通过文件包含发现可以读取，把文件包含链接复制到蚁剑上，即可连接</p>
+<h3 id="Pass-14"><a href="#Pass-14" class="headerlink" title="Pass-14"></a>Pass-14</h3><p>该题利用getimagesize()检测文件，所以依旧可以用上一题传入的图片马</p>
+<h3 id="Pass-15"><a href="#Pass-15" class="headerlink" title="Pass-15"></a>Pass-15</h3><p>需要打开php_exif模块，这题是利用exif_imagetype()来检测文件，依旧可以用之前用过的图片马来进行</p>
+<h3 id="Pass-16"><a href="#Pass-16" class="headerlink" title="Pass-16"></a>Pass-16</h3>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/05/25/LFI%20labs/" rel="prev" title="">
+      <i class="fa fa-chevron-left"></i> 
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#upload-labs"><span class="nav-number">1.</span> <span class="nav-text">upload-labs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-01"><span class="nav-number">1.0.1.</span> <span class="nav-text">Pass-01</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-02"><span class="nav-number">1.0.2.</span> <span class="nav-text">Pass-02</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-03"><span class="nav-number">1.0.3.</span> <span class="nav-text">Pass-03</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-04"><span class="nav-number">1.0.4.</span> <span class="nav-text">Pass-04</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-05"><span class="nav-number">1.0.5.</span> <span class="nav-text">Pass-05</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-06"><span class="nav-number">1.0.6.</span> <span class="nav-text">Pass-06</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-07"><span class="nav-number">1.0.7.</span> <span class="nav-text">Pass-07</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-08"><span class="nav-number">1.0.8.</span> <span class="nav-text">Pass-08</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-09"><span class="nav-number">1.0.9.</span> <span class="nav-text">Pass-09</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-10"><span class="nav-number">1.0.10.</span> <span class="nav-text">Pass-10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-11"><span class="nav-number">1.0.11.</span> <span class="nav-text">Pass-11</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-12"><span class="nav-number">1.0.12.</span> <span class="nav-text">Pass-12</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-13"><span class="nav-number">1.0.13.</span> <span class="nav-text">Pass-13</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-14"><span class="nav-number">1.0.14.</span> <span class="nav-text">Pass-14</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-15"><span class="nav-number">1.0.15.</span> <span class="nav-text">Pass-15</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-16"><span class="nav-number">1.0.16.</span> <span class="nav-text">Pass-16</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">scw</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">scw</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
