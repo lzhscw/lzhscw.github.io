@@ -1,316 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
-
-    <meta name="description" content="Solidity 基础漏洞整数溢出由于solidity本身底层代码的原因，导致solidity的数据类型会产生整数溢出，当数据达到最小值或最大值时，对这个数据进行-1 or +1操作时会导致数据变成最大值或最小值，这被称为整数下溢或上溢。 Delegatecall滥用问题1.delegatecall是很危险的，该函数会将其所调用的合约中的函数在本合约的环境中运行，会导致修改一些变量比如owner从">
-<meta property="og:type" content="article">
-<meta property="og:title" content="scw&#39;s Blog">
-<meta property="og:url" content="http://example.com/1970/01/01/Solidity%20%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/index.html">
-<meta property="og:site_name" content="scw&#39;s Blog">
-<meta property="og:description" content="Solidity 基础漏洞整数溢出由于solidity本身底层代码的原因，导致solidity的数据类型会产生整数溢出，当数据达到最小值或最大值时，对这个数据进行-1 or +1操作时会导致数据变成最大值或最小值，这被称为整数下溢或上溢。 Delegatecall滥用问题1.delegatecall是很危险的，该函数会将其所调用的合约中的函数在本合约的环境中运行，会导致修改一些变量比如owner从">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="1970-01-01T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-10-07T06:22:19.561Z">
-<meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-
-
-<link rel="canonical" href="http://example.com/1970/01/01/Solidity%20%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/">
-
-
-
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/1970/01/01/Solidity%20%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/","path":"1970/01/01/Solidity 基础漏洞/","title":""}</script>
-
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title> | scw's Blog</title>
-  
-
-
-
-
-
-
-
-
-  <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
-  </noscript>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
-
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar" role="button">
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <p class="site-title">scw's Blog</p>
-      <i class="logo-line"></i>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="Search" role="button">
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-</header>
-        
-  
-  <aside class="sidebar">
-
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Solidity-%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.</span> <span class="nav-text">Solidity 基础漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E6%BA%A2%E5%87%BA"><span class="nav-number">1.1.</span> <span class="nav-text">整数溢出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Delegatecall%E6%BB%A5%E7%94%A8%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">Delegatecall滥用问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E6%AF%81%E5%90%88%E7%BA%A6%E6%94%BB%E5%87%BB"><span class="nav-number">1.3.</span> <span class="nav-text">自毁合约攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%E6%94%BB%E5%87%BB"><span class="nav-number">1.4.</span> <span class="nav-text">拒绝服务攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%85%A5%E6%94%BB%E5%87%BB"><span class="nav-number">1.5.</span> <span class="nav-text">重入攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96"><span class="nav-number">1.6.</span> <span class="nav-text">变量覆盖</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%B8%8A%E6%BA%A2"><span class="nav-number">1.6.1.</span> <span class="nav-text">数组上溢</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E5%A6%82"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">例如</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%9C%AA%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.6.2.</span> <span class="nav-text">数组未初始化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%82%E9%A1%B9"><span class="nav-number">1.7.</span> <span class="nav-text">杂项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E9%94%99%E8%AF%AF"><span class="nav-number">1.7.1.</span> <span class="nav-text">命名错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="nav-number">1.7.2.</span> <span class="nav-text">伪随机数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E6%B7%86tx-origin%E5%92%8Cmsg-sender"><span class="nav-number">1.7.3.</span> <span class="nav-text">混淆tx.origin和msg.sender</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AA%E7%90%86%E8%A7%A3%E7%A7%81%E6%9C%89%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.7.4.</span> <span class="nav-text">未理解私有的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AA%E9%99%90%E5%88%B6%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.7.5.</span> <span class="nav-text">未限制接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gasleft"><span class="nav-number">1.7.6.</span> <span class="nav-text">gasleft()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%B5%8B%E5%90%88%E7%BA%A6%E4%BB%A3%E7%A0%81%E9%95%BF%E5%BA%A6"><span class="nav-number">1.7.7.</span> <span class="nav-text">检测合约代码长度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%90%88%E7%BA%A6%E5%9C%B0%E5%9D%80"><span class="nav-number">1.7.8.</span> <span class="nav-text">计算合约地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%90%E5%88%B6%E5%90%88%E7%BA%A6%E5%AD%97%E8%8A%82%E9%95%BF%E5%BA%A6"><span class="nav-number">1.7.9.</span> <span class="nav-text">限制合约字节长度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BB%91%E7%82%B9"><span class="nav-number">1.7.10.</span> <span class="nav-text">滑点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%9B%E5%87%BA%E9%94%99%E8%AF%AF"><span class="nav-number">1.7.11.</span> <span class="nav-text">抛出错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Calldata%E7%BC%96%E5%86%99"><span class="nav-number">1.7.12.</span> <span class="nav-text">Calldata编写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BA%E5%9D%97"><span class="nav-number">1.7.13.</span> <span class="nav-text">区块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#create2"><span class="nav-number">1.7.14.</span> <span class="nav-text">create2</span></a></li></ol></li></ol></li></ol></div>
-        </div>
-        <!--/noindex-->
-
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        <a href="/archives/">
-          <span class="site-state-item-count">4</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-  </nav>
-</div>
-
-        </div>
-      </div>
-    </div>
-
-    
-  </aside>
-
-
-    </div>
-
-    <div class="main-inner post posts-expand">
-
-
-  
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/1970/01/01/Solidity%20%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="scw's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | scw's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 1970-01-01 08:00:00" itemprop="dateCreated datePublished" datetime="1970-01-01T08:00:00+08:00">1970-01-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-10-07 14:22:19" itemprop="dateModified" datetime="2023-10-07T14:22:19+08:00">2023-10-07</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody"><h1 id="Solidity-基础漏洞"><a href="#Solidity-基础漏洞" class="headerlink" title="Solidity 基础漏洞"></a>Solidity 基础漏洞</h1><h2 id="整数溢出"><a href="#整数溢出" class="headerlink" title="整数溢出"></a>整数溢出</h2><p>由于solidity本身底层代码的原因，导致solidity的数据类型会产生整数溢出，当数据达到最小值或最大值时，对这个数据进行<code>-1 or +1</code>操作时会导致数据变成最大值或最小值，这被称为整数下溢或上溢。</p>
-<h2 id="Delegatecall滥用问题"><a href="#Delegatecall滥用问题" class="headerlink" title="Delegatecall滥用问题"></a>Delegatecall滥用问题</h2><p><strong>1.</strong><code>delegatecall</code>是很危险的，该函数会将其所调用的合约中的函数在本合约的环境中运行，会导致修改一些变量比如<code>owner</code>从而达成攻击。</p>
-<p>**2.**当用<code>delegatecall()</code>调用其他合约时，如果未处理各自合约变量存储位置时，用了默认的卡槽，则可能会产生变量覆盖问题。</p>
-<p>**3.**通过<code>delegatecall()</code>实现代理模式时，通过利用代理充当存储层时，也一定要初始化实施的合约，否则可能就会造成漏洞。</p>
-<h2 id="自毁合约攻击"><a href="#自毁合约攻击" class="headerlink" title="自毁合约攻击"></a>自毁合约攻击</h2><p>在solidity中，如果一个合约要接收ether,一定要有<code>fallback</code>或<code>receive</code>并用修饰符<code>payable</code>进行修饰。但是如果一个合约通过利用函数<code>selfdestruct()</code>来自毁合约向目标合约发送ether是允许的，所以不要在合约的判断逻辑上用<code>address(this).balance == 0</code>上，否则就会产生漏洞被攻击。</p>
-<h2 id="拒绝服务攻击"><a href="#拒绝服务攻击" class="headerlink" title="拒绝服务攻击"></a>拒绝服务攻击</h2><p>通过拒绝目标服务的发款，从而阻止目标合约的拥有者得到钱，或者让这个合约无法实现其原本的功能，从而可以要挟合约拥有者获利。</p>
-<p>如果未指定固定数量的gas，对未知合约的外部调用仍会造成拒绝服务攻击。</p>
-<h2 id="重入攻击"><a href="#重入攻击" class="headerlink" title="重入攻击"></a>重入攻击</h2><p>转账时<code>transfer</code>和<code>send</code>不再被推荐使用，因为他们在Istanbul硬分叉之后可能会破坏合约(只是单纯知道这个点但还没有学不太了解)，而使用call去转账时，他只会返回<code>false</code>而不会中断执行流，假设其转账的目标是个合约而不是钱包地址时，而这个合约没有接收函数，则会调用这个合约的<code>fallback()</code>函数，而在<code>fallback()</code>中继续调用转账合约的转账函数，则会不断重复这个过程。</p>
-<h2 id="变量覆盖"><a href="#变量覆盖" class="headerlink" title="变量覆盖"></a>变量覆盖</h2><h3 id="数组上溢"><a href="#数组上溢" class="headerlink" title="数组上溢"></a>数组上溢</h3><p>在以太坊的设计思路中，所有的<code>storage</code>变量共有一片大小为<code>2^256*32字节</code>的存储空间，所以当变成数组长度很大时即可修改任意变量的值。</p>
-<p>可以通过使动态数组长度达到最大值，然后放进一个所想放入的值，使得数组长度算术下溢，扩大数组到整个2^256的存储区域，就可以修改目标合约的<code>storage</code>。</p>
-<p>动态数组刚开始会先往插槽中放入动态数组的长度，而存入动态数组中的值会根据下标值存入<code>keccak256(slot(动态数组长度的插槽))+x</code>。</p>
-<h4 id="例如"><a href="#例如" class="headerlink" title="例如"></a>例如</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity ^0.5.0;</span><br><span class="line"></span><br><span class="line">import &#x27;../helpers/Ownable-05.sol&#x27;;</span><br><span class="line"></span><br><span class="line">contract AlienCodex is Ownable &#123;</span><br><span class="line"></span><br><span class="line">  bool public contact;</span><br><span class="line">  bytes32[] public codex;</span><br><span class="line"></span><br><span class="line">  modifier contacted() &#123;</span><br><span class="line">    assert(contact);</span><br><span class="line">    _;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  function makeContact() public &#123;</span><br><span class="line">    contact = true;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function record(bytes32 _content) contacted public &#123;</span><br><span class="line">    codex.push(_content);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function retract() contacted public &#123;</span><br><span class="line">    codex.length--;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function revise(uint i, bytes32 _content) contacted public &#123;</span><br><span class="line">    codex[i] = _content;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>例如这道题中，可以利用<code>retract()</code>这个函数使得数组长度达到最大值，然后发现这个数组长度时存储在<code>slot1</code>中的，因此该动态数组的变量值存放在<code>keccak256(1)+index</code>，而该题要修改的存储值在<code>slot0</code>中，因此我们要修改的时在<code>2^256</code>,由<code>2^256=keccak256(1)+index</code>可计算出,<code>index=2^256-keccak256(1)</code>,在通过使用<code>revise()</code>函数，输入计算出的<code>index</code>以及想要修改的值，即可覆盖<code>slot0</code>。</p>
-<h3 id="数组未初始化"><a href="#数组未初始化" class="headerlink" title="数组未初始化"></a>数组未初始化</h3><p>当一个合约定义了一个动态结构体数组时，如果这个数组未初始化，那么定义的这个结构体数组名就会作为一个<code>storage</code>指针指向其他的变量区域，从而覆盖其他变量的值。</p>
-<h2 id="杂项"><a href="#杂项" class="headerlink" title="杂项"></a>杂项</h2><h3 id="命名错误"><a href="#命名错误" class="headerlink" title="命名错误"></a>命名错误</h3><p>由于程序员的马虎，使得合约中函数命名错误，导致没有起到限制作用，进而产生漏洞。</p>
-<h3 id="伪随机数"><a href="#伪随机数" class="headerlink" title="伪随机数"></a>伪随机数</h3><p>目前没有一个很自然的方法可以通过solidity产生随机数，因为在智能合约上的东西都是公开可见的，同时要知道合约之间的调用是在同一个区块的，因此hacker可以利用在自身写的攻击合约上控制随机数产生，符合要求再调用相关合约。</p>
-<h3 id="混淆tx-origin和msg-sender"><a href="#混淆tx-origin和msg-sender" class="headerlink" title="混淆tx.origin和msg.sender"></a>混淆tx.origin和msg.sender</h3><p>由于混淆<code>tx.origin</code>和<code>msg.sender</code>导致没有达成限制目的，进而产生漏洞。</p>
-<h3 id="未理解私有的概念"><a href="#未理解私有的概念" class="headerlink" title="未理解私有的概念"></a>未理解私有的概念</h3><p><code>private</code>会将变量设置成私有，只能保证不让别的合约去访问它，但是其值在链上是公开的，如果想要数据加密，要在上链前加密。</p>
-<h3 id="未限制接口"><a href="#未限制接口" class="headerlink" title="未限制接口"></a>未限制接口</h3><p>对接口函数没有进行限制，使得攻击合约可以利用接口使得目标合约调用函数时输入相同的结果，但返回结果是不同的。</p>
-<h3 id="gasleft"><a href="#gasleft" class="headerlink" title="gasleft()"></a>gasleft()</h3><p><code>gasleft()</code>是检测到执行完这一步函数时还剩多少gas，可以通过调试计算出到这时还剩多少gas.</p>
-<h3 id="检测合约代码长度"><a href="#检测合约代码长度" class="headerlink" title="检测合约代码长度"></a>检测合约代码长度</h3><p>通过汇编中的<code>extcodesize()</code>来检测合约的代码长度以限制攻击合约，但是在solidity中，如果将函数放在构造函数中时，检测到的代码长度为0。</p>
-<h3 id="计算合约地址"><a href="#计算合约地址" class="headerlink" title="计算合约地址"></a>计算合约地址</h3><p>如果创建的合约地址丢失了，是可以通过计算找回的，合约地址是由<code>keccak256(address,nonce)</code>计算的，其中<code>address</code>是指创建合约的以太坊地址，而<code>nonce</code>是指该合约发起的交易数量。</p>
-<h3 id="限制合约字节长度"><a href="#限制合约字节长度" class="headerlink" title="限制合约字节长度"></a>限制合约字节长度</h3><p>当目标合约限制攻击合约字节长度时，可以通过将合约代码转换为字节码，然后去除一些无用的字节码达到目标合约要求字节长度。</p>
-<h3 id="滑点"><a href="#滑点" class="headerlink" title="滑点"></a>滑点</h3><p>对一般去中心化交易所来说，都会有滑点的概念，随着交易额的增长，理论汇率和实际汇率之间差值会越来越大，而没有滑点的概念的话，就会产生漏洞，可能使得合约中余额被一人通过多次交易操作全部掏空。</p>
-<h3 id="抛出错误"><a href="#抛出错误" class="headerlink" title="抛出错误"></a>抛出错误</h3><p>在<code>solidity</code>中可以自定义抛出的错误，当我们在写合约时要确保自定义错误的唯一性，同时在利用抛出错误时，要检测错误的来源，否则就会造成漏洞。</p>
-<h3 id="Calldata编写"><a href="#Calldata编写" class="headerlink" title="Calldata编写"></a>Calldata编写</h3><p>动态<code>calldata</code>编写 前三十二个字节用于存放偏移量在最末尾，接下来的三十二个字节存放的是长度，再接下来的字节存放值，可以通过自己编写<code>calldata</code>来绕过一些硬编码的<code>calldata</code>检测，从而达成攻击目的。</p>
-<h3 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h3><p><code>block.blockhash</code>只能获得最新的256个块内的哈希值，超过这256哥区块的只会返回零，同时<code>block.blockhash(block.number)</code>返回值为0，因为<code>block.number</code>返回的是当前区块号，而当前区块号是属于未来区块，所以无法获得区块哈希。</p>
-<h3 id="create2"><a href="#create2" class="headerlink" title="create2"></a>create2</h3><p>不同于原来的<code>create</code>操作码，在合约地址的计算方法上<code>create2</code>是这样计算合约地址的，<code>keccak256(0xff ++ address ++ salt ++ keccak256(init_code))[12:]</code>(<code>solidity4.0</code>版本不支持该函数)，其中<code>address</code>是创建合约者的地址。</p>
-<p>该函数使用方法是:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">assembly &#123;</span><br><span class="line">          addr := create2(0, add(bytecode, 0x20), mload(bytecode), salt)</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中<code>bytecode</code>是所想部署的合约的字节码，<code>addr</code>就是创建之后的合约地址，而<code>salt</code>则是创建合约者自己设置的特定值，因此我们就可以通过计算<code>keccak256(0xff ++ address ++ salt ++ keccak256(init_code))[12:]</code>，来自己设置<code>salt</code>，来控制得到自己想要的合约地址。</p>
-
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/1970/01/01/Capture%20The%20Ether/" rel="prev" title="">
-                  <i class="fa fa-angle-left"></i> 
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/1970/01/01/Ethernaut/" rel="next" title="">
-                   <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
-  </article>
-</div>
-
-
-
-
-
-
-</div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-
-  <div class="copyright">
-    &copy; 
-    <span itemprop="copyrightYear">2023</span>
-    <span class="with-love">
-      <i class="fa fa-heart"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">John Doe</span>
-  </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
-
-    </div>
-  </footer>
-
-  
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-  <div class="sidebar-dimmer"></div>
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up fa-lg"></i>
-    <span>0%</span>
-  </div>
-
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
-
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-
-</body>
-</html>
+extends _partials/layout.pug
+include _mixin/sidebar.pug
+include _mixin/comment.pug
+include _mixin/postmeta.pug
+
+block title
+    - var page_title = page.title
+    if page.categories && page.categories.length
+        - var cat_list = ''
+        - var comma = ''
+        each cat in page.categories.toArray()
+            - var cat_list = cat.name + comma + cat_list
+            - var comma = ' - '
+        if cat_list.length !== 0
+            - var page_title = page.title + ' - ' + cat_list
+    != `${page_title}`
+
+block header
+    h1(itemprop="name headline")
+        if page.link
+            - var postTitleIcon = '<i class="ic i-link-alt"></i>'
+            - var postText = page.title || page.link
+            != _url(page.link, postText + postTitleIcon, {class: 'link external', itemprop: 'url'})
+        else
+            != page.title
+    +PMRender(page, true)
+
+block content
+    div(class="article wrap")
+        +BCRender(page, true)
+        != partial('_partials/post/post.pug', {post: page})
+    != partial('_partials/post/nav.pug', {post: page})
+    +CommentRender
+
+block sidebar
+    +sidebarRender(true)
