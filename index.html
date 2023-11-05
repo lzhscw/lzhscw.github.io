@@ -5,82 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>原神，启动！</title>
     <link rel="icon" type="image/png" href="tubiao.png"> <!-- 替换为您的自定义图标的路径 -->
-    <style>
-        /* 初始样式，背景为黑色，白色覆盖层略微透明 */
-        body {
-            background-color: #000;
-            margin: 0;
-            overflow: hidden;
-        }
-        #overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.5); /* 略微透明的白色覆盖层 */
-            z-index: 1000;
-            transition: background-color 2s; /* 添加渐变效果 */
-        }
-        #popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%; /* 弹窗宽度占屏幕宽度的80% */
-            max-width: 478px; /* 最大宽度限制 */
-            height: 249px;
-            background-color: #fff;
-            color: gray; /* 字体颜色为灰色 */
-            text-align: center;
-            border-radius: 10px; /* 弹窗四个角为弧形 */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            z-index: 1001;
-            display: none;
-            font-size: 10px; /* 特小字 */
-            line-height: 249px; /* 垂直居中 */
-        }
-        #popup h1 {
-            font-size: 18px; /* 较大标题字体 */
-        }
-        #button {
-            position: absolute;
-            bottom: 20px; /* 调整按钮位置 */
-            right: 20px; /* 调整按钮位置 */
-            width: 76px;
-            height: 39px;
-            background-color: #0077FF; /* 蓝色背景 */
-            color: #fff; /* 白色字体 */
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        #image {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1002;
-            opacity: 0;
-            transition: opacity 2s; /* 添加渐变效果 */
-        }
-
-        /* 添加媒体查询以适应手机端 */
-        @media (max-width: 767px) {
-            #popup {
-                width: 90%; /* 弹窗宽度占屏幕宽度的90% */
-            }
-            #button {
-                width: 50px; /* 调整按钮宽度 */
-                height: 26px; /* 调整按钮高度 */
-                font-size: 8px; /* 调整字体大小 */
-            }
-            #popup h1 {
-                font-size: 14px; /* 调整标题字体大小 */
-            }
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="styles.css"> <!-- 引入样式表 -->
 </head>
 <body>
     <!-- 白色覆盖层 -->
@@ -96,47 +21,6 @@
     <img id="image" src="OP_s.png" alt="图片">
     <audio id="audio" src="OPGo.mp3"></audio>
 
-    <script>
-        // 获取元素
-        const overlay = document.getElementById('overlay');
-        const popup = document.getElementById('popup');
-        const button = document.getElementById('button');
-        const image = document.getElementById('image');
-        const audio = document.getElementById('audio');
-
-        // 弹窗确认按钮点击事件
-        button.addEventListener('click', () => {
-            // 隐藏弹窗
-            popup.style.display = 'none';
-
-            // 背景渐变为白色
-            overlay.style.backgroundColor = 'rgba(255, 255, 255, 1)';
-            
-            // 图片渐变出现
-            image.style.display = 'block';
-            setTimeout(() => {
-                image.style.opacity = 1;
-            }, 100);
-
-            // 播放音频
-            audio.play();
-
-            // 延迟1.4秒后开始图片渐变消失
-            setTimeout(() => {
-                let opacity = 1;
-                const fadeOutInterval = setInterval(() => {
-                    image.style.opacity = opacity;
-                    opacity -= 0.02;
-                    if (opacity <= 0) {
-                        clearInterval(fadeOutInterval);
-                    }
-                }, 50);
-            }, 1400);
-
-            // 延迟5.4秒后跳转到指定网页
-            setTimeout(() => {
-                window.location.href = 'a.html'; // 跳转到指定的网页
-            }, 5400);
-        });
-
-        // 显示弹
+    <script src="script.js"></script> <!-- 引入 JavaScript 文件 -->
+</body>
+</html>
