@@ -5,22 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>原神，启动！</title>
     <link rel="icon" type="image/png" href="tubiao.png"> <!-- 替换为您的自定义图标的路径 -->
-    <link rel="stylesheet" type="text/css" href="styles.css"> <!-- 引入样式表 -->
+    <link rel="stylesheet" href="sweetalert2.min.css"> <!-- 引入SweetAlert样式文件 -->
 </head>
 <body>
-    <!-- 白色覆盖层 -->
-    <div id="overlay"></div>
-    
-    <!-- 弹窗内容 -->
-    <div id="popup">
-        <h1>确定启动原神吗？</h1>
-        <button id="button">确定</button>
-    </div>
+    <button onclick="showCustomPopup()">显示弹窗</button>
 
-    <!-- 图片和音频 -->
-    <img id="image" src="OP_s.png" alt="图片">
-    <audio id="audio" src="OPGo.mp3"></audio>
+    <script src="sweetalert2.min.js"></script> <!-- 引入SweetAlert脚本文件 -->
+    <script>
+        function showCustomPopup() {
+            Swal.fire({
+                title: '确定启动原神吗？',
+                text: '这里是自定义文本内容',
+                icon: 'error', // 使用错误图标
+                customClass: {
+                    confirmButton: 'swal-button',
+                },
+                showCancelButton: false,
+                confirmButtonColor: '#0077FF',
+                confirmButtonText: '确定',
+                allowEnterKey: true,
+                allowEscapeKey: true,
+                focusConfirm: false,
+                allowOutsideClick: false,
+                showCloseButton: false,
+                showLoaderOnConfirm: false,
+                preConfirm: () => {
+                    return new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve();
+                        }, 2000); // 2秒后继续下一步操作
+                    });
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // 用户点击了确定按钮后执行的操作
+                    Swal.fire({
+                        title: '成功',
+                        text: '启动成功！',
+                        icon: 'success', // 使用成功图标
+                    });
 
-    <script src="script.js"></script> <!-- 引入 JavaScript 文件 -->
+                    // 这里添加播放音频和其他操作
+                }
+            });
+        }
+    </script>
 </body>
 </html>
