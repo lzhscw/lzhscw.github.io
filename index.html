@@ -27,7 +27,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 478px;
+            width: 80%; /* 弹窗宽度占屏幕宽度的80% */
+            max-width: 478px; /* 最大宽度限制 */
             height: 249px;
             background-color: #fff;
             color: gray; /* 字体颜色为灰色 */
@@ -63,6 +64,21 @@
             z-index: 1002;
             opacity: 0;
             transition: opacity 2s; /* 添加渐变效果 */
+        }
+
+        /* 添加媒体查询以适应手机端 */
+        @media (max-width: 767px) {
+            #popup {
+                width: 90%; /* 弹窗宽度占屏幕宽度的90% */
+            }
+            #button {
+                width: 50px; /* 调整按钮宽度 */
+                height: 26px; /* 调整按钮高度 */
+                font-size: 8px; /* 调整字体大小 */
+            }
+            #popup h1 {
+                font-size: 14px; /* 调整标题字体大小 */
+            }
         }
     </style>
 </head>
@@ -123,8 +139,4 @@
             }, 5400);
         });
 
-        // 显示弹窗
-        popup.style.display = 'block';
-    </script>
-</body>
-</html>
+        // 显示弹
