@@ -12,6 +12,7 @@
             margin: 0;
             overflow: hidden;
         }
+
         #overlay {
             position: fixed;
             top: 0;
@@ -22,14 +23,12 @@
             z-index: 1000;
             transition: background-color 2s; /* 添加渐变效果 */
         }
+
         #popup {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80%; /* 弹窗宽度占屏幕宽度的80% */
-            max-width: 478px; /* 最大宽度限制 */
-            height: 249px;
             background-color: #fff;
             color: gray; /* 字体颜色为灰色 */
             text-align: center;
@@ -40,9 +39,11 @@
             font-size: 10px; /* 特小字 */
             line-height: 249px; /* 垂直居中 */
         }
+
         #popup h1 {
             font-size: 18px; /* 较大标题字体 */
         }
+
         #button {
             position: absolute;
             bottom: 20px; /* 调整按钮位置 */
@@ -55,6 +56,7 @@
             border-radius: 10px;
             cursor: pointer;
         }
+
         #image {
             display: none;
             position: fixed;
@@ -66,18 +68,26 @@
             transition: opacity 2s; /* 添加渐变效果 */
         }
 
-        /* 添加媒体查询以适应手机端 */
-        @media (max-width: 767px) {
+        @media screen and (max-width: 768px) {
+            /* 根据屏幕宽度小于等于 768px 为手机端样式 */
             #popup {
-                width: 90%; /* 弹窗宽度占屏幕宽度的90% */
+                width: 80%;
+                height: 30%;
+                font-size: 10px;
+                line-height: 30px;
             }
+            
             #button {
-                width: 50px; /* 调整按钮宽度 */
-                height: 26px; /* 调整按钮高度 */
-                font-size: 8px; /* 调整字体大小 */
+                width: 30%;
+                height: 15%;
+                bottom: 10px;
+                right: 10px;
+                font-size: 10px;
             }
-            #popup h1 {
-                font-size: 14px; /* 调整标题字体大小 */
+
+            #image {
+                width: 40%;
+                height: 30%;
             }
         }
     </style>
@@ -112,31 +122,4 @@
             // 背景渐变为白色
             overlay.style.backgroundColor = 'rgba(255, 255, 255, 1)';
             
-            // 图片渐变出现
-            image.style.display = 'block';
-            setTimeout(() => {
-                image.style.opacity = 1;
-            }, 100);
-
-            // 播放音频
-            audio.play();
-
-            // 延迟1.4秒后开始图片渐变消失
-            setTimeout(() => {
-                let opacity = 1;
-                const fadeOutInterval = setInterval(() => {
-                    image.style.opacity = opacity;
-                    opacity -= 0.02;
-                    if (opacity <= 0) {
-                        clearInterval(fadeOutInterval);
-                    }
-                }, 50);
-            }, 1400);
-
-            // 延迟5.4秒后跳转到指定网页
-            setTimeout(() => {
-                window.location.href = 'a.html'; // 跳转到指定的网页
-            }, 5400);
-        });
-
-        // 显示弹
+            // 图片渐变
