@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>扫雷游戏</title>
+    <link rel="stylesheet" href="saolei.css">
+</head>
+<body>
+    <h1>扫雷游戏</h1>
+    <div>
+        <label for="difficulty">选择难度:</label>
+        <select id="difficulty">
+            <option value="easy">简单</option>
+            <option value="normal">普通</option>
+            <option value="hard">困难</option>
+        </select>
+        <button onclick="startGame()">开始游戏</button>
+    </div>
+    <div id="minesweeper"></div>
+    <p id="status"></p>
+    <script src="saolei.js"></script>
+</body>
+</html>

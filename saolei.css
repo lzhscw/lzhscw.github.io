@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f8f9fa;
+}
+
+#minesweeper {
+    display: grid;
+    margin: 20px auto;
+    grid-gap: 0; /* 移除网格之间的间隙 */
+    border: 2px solid #bbb;
+    width: max-content; /* 使网格宽度根据内容自动调整 */
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+    background-color: #d1d1d1;
+    border: 1px solid #bbb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    padding: 0;
+    box-sizing: border-box; /* 确保边框不会影响大小 */
+}
+
+
+
+.cell.flag {
+    background-color: #ffd700;
+}
+
+.cell.open {
+    background-color: #e0e0e0;
+    cursor: default;
+}
+
+#status {
+    font-size: 20px;
+    margin-top: 20px;
+}
